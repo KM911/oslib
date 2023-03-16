@@ -1,7 +1,5 @@
 package oslib
 
-// package os-tool
-
 import (
 	"os"
 	"os/exec"
