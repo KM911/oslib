@@ -1,3 +1,3 @@
-module github.com/KM911/os-tool
+module oslib
 
 go 1.19
