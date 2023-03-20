@@ -12,6 +12,19 @@ import (
 func Run(__COMAND__ string) {
 	if runtime.GOOS == "windows" {
 		cmd := exec.Command("cmd", "/C", __COMAND__)
+		cmd.Run()
+	} else {
+		cmd := exec.Command("sh", "-c", __COMAND__)
+		cmd.Run()
+	}
+}
+
+/*
+执行指令 并重定向输出
+*/
+func RunStd(__COMAND__ string) {
+	if runtime.GOOS == "windows" {
+		cmd := exec.Command("cmd", "/C", __COMAND__)
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 		cmd.Run()

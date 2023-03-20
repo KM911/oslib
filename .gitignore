@@ -6,3 +6,5 @@
 *.exe
 *.bat
 *.vbs
+
+main.go
