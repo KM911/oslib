@@ -25,4 +25,9 @@ func Test_Dir(t *testing.T) {
 		fmt.Println(oslib.Dir("D:\\SOFT\\BIN"))
 
 	})
+
+	t.Run("cmdpath", func(t *testing.T) {
+		fmt.Println(oslib.CmdPath())
+		fmt.Println(oslib.RunPath())
+	})
 }
