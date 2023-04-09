@@ -16,7 +16,36 @@ func Dir(path string) []string {
 	}
 	var fileNames []string
 	for _, file := range files {
+		// 我们不希望就是显示文件夹 而是只显示文件
+		if file.IsDir() {
+			continue
+		}
 		fileNames = append(fileNames, file.Name())
+
+	}
+	return fileNames
+}
+
+/*
+返回文件夹下的所有文件 包括就是子文件夹下的文件
+例如 [a.txt b.txt c.txt a/a.txt a/b.txt a/c.txt]
+*/
+func DeepDir(path string) []string {
+	files, err := os.ReadDir(path)
+	if err != nil {
+		panic(err)
+	}
+	var fileNames []string
+	for _, file := range files {
+		if file.IsDir() {
+			deepFileNames := DeepDir(path + "/" + file.Name())
+			for _, deepFileName := range deepFileNames {
+				fileNames = append(fileNames, file.Name()+"/"+deepFileName)
+			}
+
+		} else {
+			fileNames = append(fileNames, file.Name())
+		}
 	}
 	return fileNames
 }
