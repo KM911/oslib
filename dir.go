@@ -51,6 +51,60 @@ func DeepDir(path string) []string {
 }
 
 /*
+返回文件夹下的所有文件 只含特定后缀的文件
+*/
+func DeepDirKeep(path string, type_ []string) []string {
+
+	files, err := os.ReadDir(path)
+	if err != nil {
+		panic(err)
+	}
+	var fileNames []string
+	for _, file := range files {
+		if file.IsDir() {
+			deepFileNames := DeepDir(path + "/" + file.Name())
+			for _, deepFileName := range deepFileNames {
+				if InArray(filepath.Ext(deepFileName), type_) {
+					fileNames = append(fileNames, file.Name()+"/"+deepFileName)
+				}
+			}
+		} else {
+			if InArray(filepath.Ext(file.Name()), type_) {
+				fileNames = append(fileNames, file.Name())
+			}
+		}
+	}
+	return fileNames
+}
+
+/*
+返回文件夹下的所有文件 不含特定后缀的文件
+*/
+func DeepDirIngore(path string, type_ []string) []string {
+
+	files, err := os.ReadDir(path)
+	if err != nil {
+		panic(err)
+	}
+	var fileNames []string
+	for _, file := range files {
+		if file.IsDir() {
+			deepFileNames := DeepDir(path + "/" + file.Name())
+			for _, deepFileName := range deepFileNames {
+				if !InArray(filepath.Ext(deepFileName), type_) {
+					fileNames = append(fileNames, file.Name()+"/"+deepFileName)
+				}
+			}
+		} else {
+			if !InArray(filepath.Ext(file.Name()), type_) {
+				fileNames = append(fileNames, file.Name())
+			}
+		}
+	}
+	return fileNames
+}
+
+/*
 返回文件夹下的所有文件 不包括特定后缀的文件
 */
 func DirIngore(path string, type_ []string) []string {
