@@ -1,7 +1,6 @@
 package test
 
 import (
-	"fmt"
 	"github.com/KM911/oslib"
 	"testing"
 )
@@ -17,16 +16,5 @@ func Test_Dir(t *testing.T) {
 		}
 
 	})
-	t.Run("Dir", func(t *testing.T) {
-		fmt.Println(oslib.Dir(oslib.RunPath()))
-	})
 
-	t.Run("DeepDir", func(t *testing.T) {
-		fmt.Println(oslib.DeepDir(oslib.RunPath()))
-	})
-
-	t.Run("cmdpath", func(t *testing.T) {
-		fmt.Println(oslib.CmdPath())
-		fmt.Println(oslib.RunPath())
-	})
 }
