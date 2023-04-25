@@ -12,22 +12,6 @@ import (
 // 为了避免和系统包冲突 我们的变量名结尾都加上下划线 例如 file_ path_ type_ 等等 尽量不影响阅读
 
 /*
-将文件路类型换为特定类型的文件类型 返回相对路径 需要带 . 后缀
-例如 /home/xxx/xxx.go 返回 /home/xxx/xxx.txt
-test.mp4 返回 test.mp3
-*/
-func TransformFileType(path string, type_ string) string {
-	if type_[:1] != "." {
-		type_ = "." + type_
-	}
-	if filepath.Ext(path) == type_ {
-		return path
-	} else {
-		return path[:len(path)-len(filepath.Ext(path))] + type_
-	}
-}
-
-/*
 返回文件的绝对路径
 移除错误处理
 */

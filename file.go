@@ -1,8 +1,11 @@
 package oslib
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
+	"reflect"
+	"strings"
 )
 
 /*
@@ -12,6 +15,16 @@ test.go 返回 test
 */
 func FileName(file_ string) string {
 	return filepath.Base(file_)[:len(filepath.Ext(file_))]
+}
+
+// GetFileNameWithoutExtension 获取不包含扩展名的文件名
+func GetFileNameWithoutExtension(filePath string) string {
+	fileName := filepath.Base(filePath)
+	dotIndex := strings.LastIndex(fileName, ".")
+	if dotIndex == -1 {
+		return fileName
+	}
+	return fileName[:dotIndex]
 }
 
 /*
@@ -33,14 +46,38 @@ func FullFileName(file_ string) string {
 	}
 }
 
+// GetFileName 获取文件名，不包括路径和扩展名
+func GetFileName(filePath string) (fileName string) {
+	absPath, _ := filepath.Abs(filePath)
+	fileBase := filepath.Base(absPath)
+	fileExt := filepath.Ext(fileBase)
+	fileName = fileBase[:len(fileBase)-len(fileExt)]
+	return fileName
+}
+
 /*
-判断文件是否存在
+判断文件或者文件夹是否存在
 */
 func IsExit(file_ string) bool {
 	_, err := os.Stat(file_)
 	if err != nil {
-		println("文件路径为："+file_, "文件不存在")
 		return false
 	}
 	return true
+}
+
+func Check(a any) {
+	fmt.Println("type is ", reflect.TypeOf(a))
+	fmt.Println("data is ", a)
+}
+
+/*
+将文件路类型换为特定类型的文件类型 返回相对路径 需要带 . 后缀
+例如 /home/xxx/xxx.go 返回 /home/xxx/xxx.txt
+test.mp4 返回 test.mp3
+*/
+func ChangeFileType(path string, type_ string) string {
+	ext := filepath.Ext(path)
+	withExt := strings.TrimSuffix(path, ext)
+	return withExt + "." + type_
 }

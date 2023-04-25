@@ -9,7 +9,6 @@ import (
 返回文件夹下的所有文件 不包括子文件夹 和隐藏文件
 */
 func Dir(path string) []string {
-
 	files, err := os.ReadDir(path)
 	if err != nil {
 		panic(err)
@@ -21,13 +20,13 @@ func Dir(path string) []string {
 			continue
 		}
 		fileNames = append(fileNames, file.Name())
-
 	}
 	return fileNames
+
 }
 
 /*
-返回文件夹下的所有文件 包括就是子文件夹下的文件
+返回文件夹下的所有文件 包括就是子文件夹下的文件 不包括隐藏文件
 例如 [a.txt b.txt c.txt a/a.txt a/b.txt a/c.txt]
 */
 func DeepDir(path string) []string {
@@ -42,13 +41,14 @@ func DeepDir(path string) []string {
 			for _, deepFileName := range deepFileNames {
 				fileNames = append(fileNames, file.Name()+"/"+deepFileName)
 			}
-
 		} else {
 			fileNames = append(fileNames, file.Name())
 		}
 	}
 	return fileNames
 }
+
+//}
 
 /*
 返回文件夹下的所有文件 只含特定后缀的文件
