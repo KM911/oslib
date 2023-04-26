@@ -14,7 +14,11 @@ import (
 test.go 返回 test
 */
 func FileName(file_ string) string {
-	return filepath.Base(file_)[:len(filepath.Ext(file_))]
+	ext := filepath.Ext(file_)
+	file_ = filepath.Base(file_)
+	length := len(file_)
+	return file_[:length-len(ext)]
+	// 其实这里我还是像做一个对比的 就是看看我们的编译器是不是对其一些优化
 }
 
 // GetFileNameWithoutExtension 获取不包含扩展名的文件名
