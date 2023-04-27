@@ -30,7 +30,7 @@ func CmdPath() string {
 }
 
 ///*
-//获取运行时的路径
+//获取运行时的路径 作废 因为该方法并不稳定 会因为调用该方法的位置变化而变化
 //*/
 //func RuntimePath() string {
 //	_, fullFilename, _, _ := runtime.Caller(0)
