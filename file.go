@@ -114,3 +114,28 @@ func RandomStringName(length int) (StringName string) {
 	StringName = StringBuilder.String()
 	return StringName
 }
+
+/*
+读取文本文件
+*/
+func ReadTextFile(file string) string {
+	open, err := os.Open(file)
+	if err != nil {
+		return ""
+	}
+	defer open.Close()
+	stat, err := open.Stat()
+	if err != nil {
+		return ""
+	}
+	size := stat.Size()
+	var data = make([]byte, size)
+	open.Read(data)
+	return string(data)
+}
+
+// python 真的为我做了很多 就是说 在linux中是使用
+// 这里应该返回一个迭代器的就是说 我们这里还需要就是
+//func ReadTextByline(file string) string {
+//
+//}
