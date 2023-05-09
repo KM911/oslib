@@ -5,16 +5,18 @@ import (
 	"time"
 )
 
-type TimeCounter struct {
+// 计时器
+type timer struct {
 	start time.Time
 }
 
-func (t *TimeCounter) Start() *TimeCounter {
+func TimerStart() *timer {
+	t := timer{}
 	t.start = time.Now()
-	return t
+	return &t
 }
 
-func (t *TimeCounter) End() {
+func (t *timer) End() {
 	end := time.Now()
 	fmt.Println("花费时间为：", end.Sub(t.start))
 }

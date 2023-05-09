@@ -134,6 +134,15 @@ func ReadTextFile(file string) string {
 	return string(data)
 }
 
+/*
+检查文件类型是否为特定类型
+例如 main.go go true
+main.go txt false
+*/
+func IsFileType(file string, type_ string) bool {
+	return filepath.Ext(file) == "."+type_
+}
+
 // python 真的为我做了很多 就是说 在linux中是使用
 // 这里应该返回一个迭代器的就是说 我们这里还需要就是
 //func ReadTextByline(file string) string {
