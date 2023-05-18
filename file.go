@@ -107,6 +107,7 @@ var StringTable = []string{
 base64是有 10 + 26 +26 = 62个字符组成的
 */
 func RandomStringName(length int) (StringName string) {
+	rand.Seed(time.Now().UnixNano())
 	StringBuilder := strings.Builder{}
 	for i := 0; i < length; i++ {
 		StringBuilder.WriteString(StringTable[rand.Intn(62)])

@@ -19,4 +19,5 @@ func TimerStart() *timer {
 func (t *timer) End() {
 	end := time.Now()
 	fmt.Println("花费时间为：", end.Sub(t.start))
+
 }
