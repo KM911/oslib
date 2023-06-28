@@ -1,4 +1,4 @@
-package oslib
+package adt
 
 import "strconv"
 

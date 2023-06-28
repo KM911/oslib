@@ -1,14 +1,11 @@
-package oslib
+package fs
 
 import (
 	"fmt"
-	"math/rand"
 	"os"
 	"path/filepath"
 	"reflect"
-	"strconv"
 	"strings"
-	"time"
 )
 
 /*
@@ -90,36 +87,9 @@ func ChangeFileType(path string, type_ string) string {
 }
 
 /*
-
- */
-// 从现在开始不是使用return 而是使用有意义的变量名?
-func RandomNumberName(length int) string {
-	return strconv.FormatInt(time.Now().Unix(), length)
-}
-
-var StringTable = []string{
-	"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-	"a", "b", "c", "d", "e", "f", "g", "h", "i",
-	"j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
-	"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
-
-/*
-base64是有 10 + 26 +26 = 62个字符组成的
-*/
-func RandomStringName(length int) (StringName string) {
-	rand.Seed(time.Now().UnixNano())
-	StringBuilder := strings.Builder{}
-	for i := 0; i < length; i++ {
-		StringBuilder.WriteString(StringTable[rand.Intn(62)])
-	}
-	StringName = StringBuilder.String()
-	return StringName
-}
-
-/*
 读取文本文件
 */
-func ReadTextFile(file string) string {
+func ReadFileAsString(file string) string {
 	open, err := os.Open(file)
 	if err != nil {
 		return ""
@@ -143,9 +113,3 @@ main.go txt false
 func IsFileType(file string, type_ string) bool {
 	return filepath.Ext(file) == "."+type_
 }
-
-// python 真的为我做了很多 就是说 在linux中是使用
-// 这里应该返回一个迭代器的就是说 我们这里还需要就是
-//func ReadTextByline(file string) string {
-//
-//}

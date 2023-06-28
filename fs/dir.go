@@ -1,6 +1,7 @@
-package oslib
+package fs
 
 import (
+	"github.com/KM911/oslib/adt"
 	"os"
 	"path/filepath"
 )
@@ -22,7 +23,6 @@ func Dir(path string) []string {
 		fileNames = append(fileNames, file.Name())
 	}
 	return fileNames
-
 }
 
 /*
@@ -64,12 +64,12 @@ func DeepDirKeep(path string, type_ []string) []string {
 		if file.IsDir() {
 			deepFileNames := DeepDir(path + "/" + file.Name())
 			for _, deepFileName := range deepFileNames {
-				if InArray(filepath.Ext(deepFileName), type_) {
+				if adt.InArray(filepath.Ext(deepFileName), type_) {
 					fileNames = append(fileNames, file.Name()+"/"+deepFileName)
 				}
 			}
 		} else {
-			if InArray(filepath.Ext(file.Name()), type_) {
+			if adt.InArray(filepath.Ext(file.Name()), type_) {
 				fileNames = append(fileNames, file.Name())
 			}
 		}
@@ -91,12 +91,12 @@ func DeepDirIngore(path string, type_ []string) []string {
 		if file.IsDir() {
 			deepFileNames := DeepDir(path + "/" + file.Name())
 			for _, deepFileName := range deepFileNames {
-				if !InArray(filepath.Ext(deepFileName), type_) {
+				if !adt.InArray(filepath.Ext(deepFileName), type_) {
 					fileNames = append(fileNames, file.Name()+"/"+deepFileName)
 				}
 			}
 		} else {
-			if !InArray(filepath.Ext(file.Name()), type_) {
+			if !adt.InArray(filepath.Ext(file.Name()), type_) {
 				fileNames = append(fileNames, file.Name())
 			}
 		}
@@ -114,7 +114,7 @@ func DirIngore(path string, type_ []string) []string {
 	}
 	var fileNames []string
 	for _, file := range files {
-		if InArray(filepath.Ext(file.Name()), type_) {
+		if adt.InArray(filepath.Ext(file.Name()), type_) {
 			fileNames = append(fileNames, file.Name())
 		}
 	}
@@ -131,7 +131,7 @@ func DirKeep(path string, type_ []string) []string {
 	}
 	var fileNames []string
 	for _, file := range files {
-		if InArray(filepath.Ext(file.Name()), type_) {
+		if adt.InArray(filepath.Ext(file.Name()), type_) {
 			fileNames = append(fileNames, file.Name())
 		}
 	}

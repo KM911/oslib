@@ -1,4 +1,4 @@
-package oslib
+package fs
 
 import (
 	"os"
@@ -14,6 +14,9 @@ import (
 /*
 返回文件的绝对路径
 移除错误处理
+e.g.
+a.txt -> /home/xxx/a.txt
+Makefile -> D:/SOFT/CODE/Makefile
 */
 func AbsPath(file_ string) string {
 	abs, _ := filepath.Abs(file_)
@@ -23,6 +26,9 @@ func AbsPath(file_ string) string {
 /*
 获取当前命令窗口的路径
 移除错误处理
+e.g.
+CmdPath() -> /home/xxx
+CmdPath() -> D:/SOFT/CODE
 */
 func CmdPath() string {
 	dir, _ := os.Getwd()
@@ -47,37 +53,4 @@ func ExecutePath() string {
 		panic(err)
 	}
 	return filepath.Dir(path)
-}
-
-/*
-判断该字符串是否在数组中
-*/
-func InArray(string_ string, list []string) bool {
-	if len(list) == 0 {
-		return false
-	}
-	for _, i := range list {
-		if i == string_ {
-			return true
-		}
-	}
-	return false
-}
-
-/*
-判断两个字符串数组是否相等
-长度相同
-内容相同
-不要求内容相同
-*/
-func IsSameArray(array1 []string, array2 []string) bool {
-	if len(array1) != len(array2) {
-		return false
-	}
-	for _, i := range array1 {
-		if !InArray(i, array2) {
-			return false
-		}
-	}
-	return true
 }

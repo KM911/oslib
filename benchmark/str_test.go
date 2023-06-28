@@ -1,14 +1,14 @@
 package benchmark
 
 import (
-	"github.com/KM911/oslib"
+	"github.com/KM911/oslib/adt"
 	"testing"
 )
 
 func BenchmarkStrByFunc(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		println(oslib.GetPrefix("dzg", 2))
-		println(oslib.GetPrefix("commondzg", 2))
+		println(adt.GetPrefix("dzg", 2))
+		println(adt.GetPrefix("commondzg", 2))
 	}
 }
 
