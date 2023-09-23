@@ -33,7 +33,7 @@ func BenchmarkFilter(b *testing.B) {
 	}
 
 }
-func BenchmarkFilterMethod(b *testing.B) {
+func BenchmarkFilterFor(b *testing.B) {
 	array := []int{1, 2, 3, 4, 5, 6}
 	isodd := func(value int) bool {
 		return value%2 == 1

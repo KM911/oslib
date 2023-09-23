@@ -12,18 +12,32 @@ func TestMap(t *testing.T) {
 }
 
 func BenchmarkMap(b *testing.B) {
+	b.ReportAllocs()
 	stringSlice := []string{"A", "B", "C"}
 	for i := 0; i < b.N; i++ {
 		Map(stringSlice, strings.ToLower)
 	}
 }
-func BenchmarkMap1(b *testing.B) {
+
+// 结论有了呀 就是我们的
+func BenchmarkMapAppend(b *testing.B) {
+	b.ReportAllocs()
 	stringSlice := []string{"A", "B", "C"}
 	for i := 0; i < b.N; i++ {
-		Map1(stringSlice, strings.ToLower)
+		MapAppend(stringSlice, strings.ToLower)
 	}
 }
-func BenchmarkMapMethod(b *testing.B) {
+
+func BenchmarkMapSameType(b *testing.B) {
+	b.ReportAllocs()
+	stringSlice := []string{"A", "B", "C"}
+	for i := 0; i < b.N; i++ {
+		_ = MapSameType(stringSlice, strings.ToLower)
+	}
+}
+
+func BenchmarkMapFor(b *testing.B) {
+	b.ReportAllocs()
 	stringSlice := []string{"A", "B", "C"}
 	for i := 0; i < b.N; i++ {
 		newSlice := make([]string, len(stringSlice))

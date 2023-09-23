@@ -39,21 +39,21 @@ func IsEmptyDir(path string) bool {
 func SortFoldersByDepth(folders []string) []string {
 	// Create a list of tuples, where each tuple contains the folder path and its depth.
 	depths := make([]int, len(folders))
-
 	for i, folder := range folders {
 		// count depth
 		depths[i] = strings.Count(folder, "/")
 	}
-
 	// swap folder and depth
-	for i := 0; i < len(depths); i++ {
-		for j := i + 1; j < len(depths); j++ {
-			if depths[i] < depths[j] {
-				depths[i], depths[j] = depths[j], depths[i]
-				folders[i], folders[j] = folders[j], folders[i]
-			}
-		}
-	}
+	// quick sort
+
+	//for i := 0; i < len(depths); i++ {
+	//	for j := i + 1; j < len(depths); j++ {
+	//		if depths[i] < depths[j] {
+	//			depths[i], depths[j] = depths[j], depths[i]
+	//			folders[i], folders[j] = folders[j], folders[i]
+	//		}
+	//	}
+	//}
 	return folders
 }
 
