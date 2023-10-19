@@ -1,6 +1,7 @@
 package fs
 
 import (
+	"fmt"
 	"os"
 	"strings"
 )
@@ -36,24 +37,24 @@ func IsEmptyDir(path string) bool {
 	}
 	return false
 }
-func SortFoldersByDepth(folders []string) []string {
+func SortByDepth(folders []string) []string {
 	// Create a list of tuples, where each tuple contains the folder path and its depth.
 	depths := make([]int, len(folders))
 	for i, folder := range folders {
 		// count depth
 		depths[i] = strings.Count(folder, "/")
 	}
-	// swap folder and depth
-	// quick sort
-
-	//for i := 0; i < len(depths); i++ {
-	//	for j := i + 1; j < len(depths); j++ {
-	//		if depths[i] < depths[j] {
-	//			depths[i], depths[j] = depths[j], depths[i]
-	//			folders[i], folders[j] = folders[j], folders[i]
-	//		}
-	//	}
-	//}
+	// Sort the list of tuples by the depth value.
+	// from depth to shallower
+	for i := 0; i < len(folders)-1; i++ {
+		for j := 0; j < len(folders)-1-i; j++ {
+			if depths[j] < depths[j+1] {
+				depths[j], depths[j+1] = depths[j+1], depths[j]
+				folders[j], folders[j+1] = folders[j+1], folders[j]
+			}
+		}
+	}
+	fmt.Println(folders)
 	return folders
 }
 
@@ -81,7 +82,35 @@ func DeepDir(path string) ([]string, []string) {
 			fileNames = append(fileNames, file.Name())
 		}
 	}
-	return fileNames, SortFoldersByDepth(dirNames)
+	return fileNames, dirNames
+}
+
+/*
+返回文件夹下的所有 文件 和 文件夹
+文件夹按深度排序
+*/
+func DeepDirSorted(path string) ([]string, []string) {
+	files, err := os.ReadDir(path)
+	if err != nil {
+		panic(err)
+	}
+	var fileNames []string
+	var dirNames []string
+	for _, file := range files {
+		if file.IsDir() {
+			dirNames = append(dirNames, file.Name())
+			deepFileNames, deepDirNames := DeepDir(path + "/" + file.Name())
+			for _, deepFileName := range deepFileNames {
+				fileNames = append(fileNames, file.Name()+"/"+deepFileName)
+			}
+			for _, deepDirName := range deepDirNames {
+				dirNames = append(dirNames, file.Name()+"/"+deepDirName)
+			}
+		} else {
+			fileNames = append(fileNames, file.Name())
+		}
+	}
+	return fileNames, SortByDepth(dirNames)
 }
 
 /*

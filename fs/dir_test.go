@@ -20,7 +20,7 @@ func TestSortFoldersByDepth(t *testing.T) {
 	folders := []string{
 		"a/b", "a/c", "a/a/a", "a",
 	}
-	if SortFoldersByDepth(folders)[0] != "a/a/a" {
+	if SortByDepth(folders)[0] != "a/a/a" {
 		t.Error("SortFoldersByDepth failed")
 	}
 
